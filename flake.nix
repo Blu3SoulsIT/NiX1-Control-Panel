@@ -73,8 +73,7 @@
             rsync -a --mkpath ./profiles/Desktop/logo.png $out/share/icons/swiftpoint.png
 
             mkdir $out/bin
-            echo "$out/\"${name}\"" > "$out/bin/${name}"
-            chmod +x "$out/bin/${name}"
+            ln -s "$out/${name}" "$out/bin/${name}"
 
             runHook postInstall
           '';
@@ -82,7 +81,7 @@
           desktopItems = [ 
             (pkgs.makeDesktopItem  {
               name = name;
-              exec = "sh \"${name}\"";
+              exec = "\"${name}\"";
               icon = "swiftpoint.png";
               genericName = "X1 Control Panel by Swiftpoint";
               desktopName = name;
