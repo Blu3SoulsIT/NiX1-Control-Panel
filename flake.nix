@@ -1,5 +1,5 @@
 {
-  description = "Description for the project";
+  description = "X1 Control Panel software for Swiftpoint mouse products.";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
