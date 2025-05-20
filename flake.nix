@@ -75,6 +75,8 @@
             mkdir $out/bin
             ln -s "$out/${name}" "$out/bin/${name}"
 
+            rsync -a --mkpath ./*.rules $out/etc/udev/rules.d/
+
             runHook postInstall
           '';
 

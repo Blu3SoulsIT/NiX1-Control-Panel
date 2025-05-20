@@ -19,3 +19,8 @@ environment.systemPackages = [ # or 'home.packages = [' if you're using home man
   inputs.x1-control-panel.packages.<system>.default
 ];
 ```
+
+Finally add the udev rules:
+```nix
+services.udev.packages = [ inputs.x1-control-panel.packages.<system>.default ];
+```
