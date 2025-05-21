@@ -95,6 +95,7 @@
           meta = with pkgs.lib; {
             description = "X1 Control Panel by Swiftpoint";
             homepage = "https://www.swiftpoint.com";
+            license = (import ./license.nix);
           };
         };
 
