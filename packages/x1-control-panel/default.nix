@@ -1,8 +1,6 @@
 {
   name,
-  
   stdenv,
-  lib,
   makeDesktopItem,
   copyDesktopItems,
   autoPatchelfHook,
@@ -17,14 +15,15 @@
   libusb1,
   libxkbcommon,
   openssl_1_1,
-  xorg,
-  zlib
+  libx11,
+  libxrender,
+  zlib,
 }:
-let 
-        version = "3.0.7.20";
-        linkId = "a1956a80";
-        sha256 = "1wzm0hjxn7kcrh8vm6bjsmvd7m2rzfnkz7dswmvxwgddciwqgxx4";
-in 
+let
+  version = "3.0.7.20";
+  linkId = "a1956a80";
+  sha256 = "1wzm0hjxn7kcrh8vm6bjsmvd7m2rzfnkz7dswmvxwgddciwqgxx4";
+in
 stdenv.mkDerivation {
   pname = name;
   inherit version;
@@ -53,8 +52,8 @@ stdenv.mkDerivation {
     libusb1
     libxkbcommon
     openssl_1_1
-    xorg.libX11
-    xorg.libXrender
+    libx11
+    libxrender
     zlib
   ];
 
@@ -74,19 +73,23 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  desktopItems = [ 
-    (makeDesktopItem  {
+  desktopItems = [
+    (makeDesktopItem {
       name = name;
       exec = "\"${name}\"";
       icon = "swiftpoint.png";
       genericName = "X1 Control Panel by Swiftpoint";
       desktopName = name;
       categories = [ "Utility" ];
-      keywords = [ "x1" "swiftpoint" "mouse" ];
+      keywords = [
+        "x1"
+        "swiftpoint"
+        "mouse"
+      ];
     })
   ];
 
-  meta = with lib; {
+  meta = {
     description = "X1 Control Panel by Swiftpoint";
     homepage = "https://www.swiftpoint.com";
     license = (import ./license.nix);

@@ -12,37 +12,47 @@
     };
   };
 
-  outputs = inputs@{ flake-parts, ... }:
+  outputs =
+    inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [];
+      imports = [ ];
       systems = [ "x86_64-linux" ];
 
-      perSystem = { config, self', inputs', pkgs, system, ... }: 
-      let
-        name = "Swiftpoint X1 Control Panel";
-      in
-      {
-        _module.args.pkgs = import inputs.nixpkgs {
-          inherit system;
-          overlays = [
-            (final: prev: {
-              openssl_1_1 = (import inputs.nixpkgs-stable {
-                inherit system;
-                config.permittedInsecurePackages = [
-                  "openssl-1.1.1w"
-                ];
-              }).openssl_1_1;
-            })
-          ];
-        };
+      perSystem =
+        {
+          config,
+          self',
+          inputs',
+          pkgs,
+          system,
+          ...
+        }:
+        let
+          name = "Swiftpoint X1 Control Panel";
+        in
+        {
+          _module.args.pkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = [
+              (final: prev: {
+                openssl_1_1 =
+                  (import inputs.nixpkgs-stable {
+                    inherit system;
+                    config.permittedInsecurePackages = [
+                      "openssl-1.1.1w"
+                    ];
+                  }).openssl_1_1;
+              })
+            ];
+          };
 
-        packages.default = pkgs.callPackage ./packages/x1-control-panel { inherit name; };
+          packages.default = pkgs.callPackage ./packages/x1-control-panel { inherit name; };
 
-        apps.default = {
-          type = "app";
-          program = "\"${config.packages.default}/${name}\"";
+          apps.default = {
+            type = "app";
+            program = "\"${config.packages.default}/${name}\"";
+          };
         };
-      };
-      flake = {};
+      flake = { };
     };
 }
