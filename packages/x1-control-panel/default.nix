@@ -15,14 +15,15 @@
   libusb1,
   libxkbcommon,
   openssl_1_1,
-  xorg,
+  libx11,
+  libxrender,
   zlib,
 }:
-let 
-        version = "3.0.7.20";
-        linkId = "a1956a80";
-        sha256 = "1wzm0hjxn7kcrh8vm6bjsmvd7m2rzfnkz7dswmvxwgddciwqgxx4";
-in 
+let
+  version = "3.0.7.20";
+  linkId = "a1956a80";
+  sha256 = "1wzm0hjxn7kcrh8vm6bjsmvd7m2rzfnkz7dswmvxwgddciwqgxx4";
+in
 stdenv.mkDerivation {
   pname = name;
   inherit version;
@@ -51,8 +52,8 @@ stdenv.mkDerivation {
     libusb1
     libxkbcommon
     openssl_1_1
-    xorg.libX11
-    xorg.libXrender
+    libx11
+    libxrender
     zlib
   ];
 
@@ -72,7 +73,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  desktopItems = [ 
+  desktopItems = [
     (makeDesktopItem {
       name = name;
       exec = "\"${name}\"";
