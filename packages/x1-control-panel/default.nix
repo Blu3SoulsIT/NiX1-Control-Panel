@@ -1,8 +1,6 @@
 {
   name,
-  
   stdenv,
-  lib,
   makeDesktopItem,
   copyDesktopItems,
   autoPatchelfHook,
@@ -18,7 +16,7 @@
   libxkbcommon,
   openssl_1_1,
   xorg,
-  zlib
+  zlib,
 }:
 let 
         version = "3.0.7.20";
@@ -75,18 +73,22 @@ stdenv.mkDerivation {
   '';
 
   desktopItems = [ 
-    (makeDesktopItem  {
+    (makeDesktopItem {
       name = name;
       exec = "\"${name}\"";
       icon = "swiftpoint.png";
       genericName = "X1 Control Panel by Swiftpoint";
       desktopName = name;
       categories = [ "Utility" ];
-      keywords = [ "x1" "swiftpoint" "mouse" ];
+      keywords = [
+        "x1"
+        "swiftpoint"
+        "mouse"
+      ];
     })
   ];
 
-  meta = with lib; {
+  meta = {
     description = "X1 Control Panel by Swiftpoint";
     homepage = "https://www.swiftpoint.com";
     license = (import ./license.nix);
