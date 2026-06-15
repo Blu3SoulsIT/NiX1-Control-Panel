@@ -4,7 +4,7 @@
   makeDesktopItem,
   copyDesktopItems,
   autoPatchelfHook,
-  libsForQt5,
+  qt5,
   rsync,
 
   dbus-glib,
@@ -37,7 +37,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     copyDesktopItems
     autoPatchelfHook
-    libsForQt5.qt5.wrapQtAppsHook
+    qt5.wrapQtAppsHook
     rsync
   ];
 
@@ -47,8 +47,8 @@ stdenv.mkDerivation {
     glib
     llvmPackages_20.libcxxClang
     libGL
-    libsForQt5.qt5.qtsvg
-    libsForQt5.qt5.wrapQtAppsHook
+    qt5.qtsvg
+    qt5.wrapQtAppsHook
     libusb1
     libxkbcommon
     openssl_1_1
